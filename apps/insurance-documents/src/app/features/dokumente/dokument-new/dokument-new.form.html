@@ -39,12 +39,19 @@
   <div class="form__row">
     <mat-form-field>
       <mat-label>Versicherungssumme</mat-label>
-      <input matInput type="number" formControlName="versicherungssumme" />
+      <input
+        matInput
+        type="number"
+        data-test="versicherungssumme-input"
+        formControlName="versicherungssumme"
+      />
     </mat-form-field>
   </div>
 
   <div class="form__row">
-    <mat-checkbox formControlName="hatWebshop">Hat Webshop</mat-checkbox>
+    <mat-checkbox data-test="hat-webshop-checkbox" formControlName="hatWebshop"
+      >Hat Webshop</mat-checkbox
+    >
   </div>
 
   <div class="form__row">

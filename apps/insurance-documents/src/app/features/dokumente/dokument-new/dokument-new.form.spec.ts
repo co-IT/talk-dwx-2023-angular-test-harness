@@ -5,6 +5,8 @@ import { MatSelectHarness } from '@angular/material/select/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { MatErrorHarness } from '@angular/material/form-field/testing';
 import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
+import { MatInputHarness } from '@angular/material/input/testing';
+import { parallel } from '@angular/cdk/testing';
 
 describe('DokumentNewForm', () => {
   describe('When "Berechnungsarten" are present', () => {
@@ -155,5 +157,99 @@ describe('[👶🏻 Child Loader] Dokument New Form', () => {
     const errorMessage = await error.getText();
 
     expect(errorMessage).toBe('Bitte wählen Sie eine Berechnungsart aus.');
+  });
+});
+describe('[🚀 Parallel] When the form gets input', () => {
+  it('is filled out in parallel', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DokumentNewForm],
+      providers: [provideNoopAnimations()],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(DokumentNewForm);
+
+    fixture.componentInstance.voreinstellungen = {
+      berechnungsarten: ['Anzahl Mitarbeiter', 'Umsatz'],
+      risiken: ['Gering', 'Mittel'],
+      zusatzaufschlaege: [],
+    };
+
+    fixture.detectChanges();
+
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+
+    const berechnungSelect = await loader.getHarness(
+      MatSelectHarness.with({ selector: '[data-test=berechnungsart-select]' })
+    );
+
+    const risikoSelect = await loader.getHarness(
+      MatSelectHarness.with({ selector: '[data-test=risiko-select]' })
+    );
+
+    const versicherungssummeInput = await loader.getHarness(
+      MatInputHarness.with({
+        selector: '[data-test=versicherungssumme-input]',
+      })
+    );
+
+    const hatWebShopCheckbox = await loader.getHarness(
+      MatCheckboxHarness.with({ selector: '[data-test=hat-webshop-checkbox]' })
+    );
+
+    const willZusatzschutzCheckbox = await loader.getHarness(
+      MatCheckboxHarness.with({
+        selector: '[data-test=will-zusatzschuts-checkbox]',
+      })
+    );
+
+    await berechnungSelect.open();
+    await berechnungSelect.clickOptions({ text: 'Umsatz' });
+    await risikoSelect.open();
+    await risikoSelect.clickOptions({ text: 'Gering' });
+
+    await parallel(() => [
+      hatWebShopCheckbox.check(),
+      willZusatzschutzCheckbox.check(),
+      versicherungssummeInput.setValue(`${100_000}`),
+    ]);
+
+    // Learning: Interactions with the DOM cannot run in parallel, when selects are involved.
+    //           This is because, only one overlay of the select can be open at the same time.
+    //
+    // await parallel(() => [
+    //   berechnungSelect
+    //     .open()
+    //     .then(() => berechnungSelect.clickOptions({ text: 'Umsatz' })),
+    //   risikoSelect
+    //     .open()
+    //     .then(() => risikoSelect.clickOptions({ text: 'Gering' })),
+    //   versicherungssummeInput.setValue(`${100_000}`),
+    // ]);
+
+    // Get values in parallel takes between 915ms - 930ms (Macbook Pro 2019)
+    const [
+      berechnung,
+      risiko,
+      versicherungssumme,
+      hatWebShop,
+      willZusatzschutz,
+    ] = await parallel(() => [
+      berechnungSelect.getValueText(),
+      risikoSelect.getValueText(),
+      versicherungssummeInput.getValue(),
+      hatWebShopCheckbox.isChecked(),
+      willZusatzschutzCheckbox.isChecked(),
+    ]);
+
+    // Get values sequentially takes between 926ms - 937ms (Macbook Pro 2019)
+    // const berechnung = await berechnungSelect.getValueText();
+    // const risiko = await risikoSelect.getValueText();
+    // const versicherungssumme = await versicherungssummeInput.getValue();
+
+    expect(berechnung).toBe('Umsatz');
+    expect(risiko).toBe('Gering');
+    expect(versicherungssumme).toBe(`${100_000}`);
+    expect(hatWebShop).toBe(true);
+    expect(willZusatzschutz).toBe(true);
   });
 });
