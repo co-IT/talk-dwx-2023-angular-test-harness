@@ -1,4 +1,5 @@
 # DWX 2023 Talk - Angular Test Harness
+
 > brought to you with 🥰 by [co-IT.eu](https://co-it.eu) GmbH
 
 ## Inside this repository
@@ -29,7 +30,7 @@
 
 - Having .[Net 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) installed
 - Having [Node 18](https://nodejs.org/en/download) installed
-- *Having [pnpm](https://pnpm.io/installation) installed
+- \*Having [pnpm](https://pnpm.io/installation) installed
   - You also can install the dependencies with _npm_ or _yarn_.
 
 ## Getting Started
@@ -47,4 +48,10 @@ pnpm nx serve --project insurance-documents
 # Console 2: .Net Web API
 pnpm nx serve --project insurance-documents.web-api
 
+```
+
+## Execute Tests
+
+```
+pnpm nx run insurance-documents:test --watch
 ```
