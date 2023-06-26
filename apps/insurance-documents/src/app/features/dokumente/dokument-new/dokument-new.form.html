@@ -8,7 +8,7 @@
       >
         <mat-option
           data-test="for-vanilla-berechnungsart-select-option"
-          *ngFor="let berechnungsart of voreinstellungen.berechnungsarten"
+          *ngFor="let berechnungsart of voreinstellungen.berechnungsarten || []"
           [value]="berechnungsart"
         >
           {{ berechnungsart }}
@@ -24,7 +24,7 @@
       <mat-label class="label">Risiko</mat-label>
       <mat-select data-test="risiko-select" formControlName="risiko">
         <mat-option
-          *ngFor="let risiko of voreinstellungen.risiken"
+          *ngFor="let risiko of voreinstellungen.risiken || []"
           [value]="risiko"
         >
           {{ risiko }}
@@ -61,7 +61,7 @@
       <mat-label class="label">Zusatzschutzaufschlag</mat-label>
       <mat-select formControlName="zusatzschutzAufschlag">
         <mat-option
-          *ngFor="let risiko of voreinstellungen?.zusatzaufschlaege"
+          *ngFor="let risiko of voreinstellungen?.zusatzaufschlaege || []"
           [value]="risiko"
         >
           {{ risiko }}
