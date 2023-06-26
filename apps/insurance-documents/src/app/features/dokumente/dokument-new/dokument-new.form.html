@@ -49,6 +49,7 @@
 
   <div class="form__row">
     <mat-checkbox
+      data-test="will-zusatzschuts-checkbox"
       formControlName="willZusatzschutz"
       (change)="toggleDisabled({ formControlName: 'zusatzschutzAufschlag', $event})"
     >
@@ -59,7 +60,10 @@
   <div class="form__row">
     <mat-form-field>
       <mat-label class="label">Zusatzschutzaufschlag</mat-label>
-      <mat-select formControlName="zusatzschutzAufschlag">
+      <mat-select
+        data-test="zusatzschutzaufschlag-select"
+        formControlName="zusatzschutzAufschlag"
+      >
         <mat-option
           *ngFor="let risiko of voreinstellungen?.zusatzaufschlaege || []"
           [value]="risiko"

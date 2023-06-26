@@ -4,6 +4,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { MatErrorHarness } from '@angular/material/form-field/testing';
+import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
 
 describe('DokumentNewForm', () => {
   describe('When "Berechnungsarten" are present', () => {
@@ -71,6 +72,53 @@ describe('DokumentNewForm', () => {
 
       expect(errorText).toBe('Bitte wählen Sie eine Berechnungsart aus.');
     });
+  });
+});
+
+describe('When "Zusatzschutzaufschlag" is checked', () => {
+  it('makes "Zusatzschutzaufschläge" selectable', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DokumentNewForm],
+      providers: [provideNoopAnimations()],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(DokumentNewForm);
+
+    fixture.componentInstance.voreinstellungen = {
+      berechnungsarten: ['Anzahl Mitarbeiter', 'Risiko'],
+      risiken: [],
+      zusatzaufschlaege: ['10%', '20%'],
+    };
+
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+
+    const checkbox = await loader.getHarness(
+      MatCheckboxHarness.with({
+        selector: '[data-test=will-zusatzschuts-checkbox]',
+      })
+    );
+
+    await checkbox.check();
+    const isChecked = await checkbox.isChecked();
+
+    expect(isChecked).toBe(true);
+
+    fixture.detectChanges();
+
+    // Finding: we put the data-test on the wrong element.
+    //          The error says that the MatSelectHarness could not be found
+    //          It would be nice if the error says. Found an element but it is no MatSelect.
+    const select = await loader.getHarness(
+      MatSelectHarness.with({
+        selector: '[data-test=zusatzschutzaufschlag-select]',
+      })
+    );
+
+    await select.open();
+
+    const options = await select.getOptions();
+
+    expect(options.length).toBe(2);
   });
 });
 
