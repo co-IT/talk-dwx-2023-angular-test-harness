@@ -74,7 +74,7 @@ export class TableComponent<TModel> implements AfterViewInit {
   });
 
   constructor() {
-    effect(() => this.bindModelsToTable());
+    effect(() => this.bindModelsToTable(), { allowSignalWrites: true });
     effect(() => this.propagateModelWhenSelectionChanged(), {
       allowSignalWrites: true,
     });
@@ -98,6 +98,10 @@ export class TableComponent<TModel> implements AfterViewInit {
     const dataSource = new TableDatasource(models || []);
     dataSource.sort = this.sort;
     this.table.dataSource = dataSource;
+
+    // Clear Selection
+    this.selection.clear();
+    this.selected.emit(null);
   }
 
   private propagateModelWhenSelectionChanged() {
