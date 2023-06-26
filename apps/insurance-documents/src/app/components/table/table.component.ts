@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -40,8 +41,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent<TModel> {
-  protected readonly tableData = signal<TModel[]>([]);
+export class TableComponent<TModel> implements AfterViewInit {
+  private readonly models = signal<TModel[]>([]);
 
   protected readonly selection = new SelectionModel<TModel>(false);
   protected readonly selectionChange = toSignal(this.selection.changed);
@@ -51,7 +52,7 @@ export class TableComponent<TModel> {
   });
 
   @Input({ required: true }) set data(data: TModel[] | null) {
-    this.tableData.set(data || []);
+    this.models.set(data || []);
   }
 
   @Input({ required: true }) set columns(columns: KeyOf<TModel>[]) {
@@ -73,18 +74,22 @@ export class TableComponent<TModel> {
   });
 
   constructor() {
-    effect(() => this.updateTableWhenTableDataChanged());
+    effect(() => this.bindModelsToTable());
     effect(() => this.propagateModelWhenSelectionChanged(), {
       allowSignalWrites: true,
     });
+  }
+
+  ngAfterViewInit() {
+    this.bindModelsToTable();
   }
 
   protected updateCurrentPage($event: PageEvent) {
     this.changedCurrentPage.emit($event.pageIndex);
   }
 
-  private updateTableWhenTableDataChanged() {
-    const models = this.tableData();
+  private bindModelsToTable() {
+    const models = this.models();
 
     if (!this.table) {
       return;
@@ -92,7 +97,6 @@ export class TableComponent<TModel> {
 
     const dataSource = new TableDatasource(models || []);
     dataSource.sort = this.sort;
-
     this.table.dataSource = dataSource;
   }
 

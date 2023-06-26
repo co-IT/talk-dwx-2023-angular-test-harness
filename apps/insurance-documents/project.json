@@ -102,6 +102,15 @@
       "options": {
         "buildTarget": "insurance-documents:build"
       }
+    },
+    "component-test": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/insurance-documents/cypress.config.ts",
+        "testingType": "component",
+        "skipServe": true,
+        "devServerTarget": "insurance-documents:build"
+      }
     }
   }
 }
