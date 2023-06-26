@@ -7,7 +7,7 @@ import {
   Input,
   Output,
   signal,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -34,14 +34,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
     NgForOf,
     AsyncPipe,
     JsonPipe,
-    TableColumnTitlePipe
+    TableColumnTitlePipe,
   ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<TModel> {
-  private readonly tableData = signal<TModel[]>([]);
+  protected readonly tableData = signal<TModel[]>([]);
 
   protected readonly selection = new SelectionModel<TModel>(false);
   protected readonly selectionChange = toSignal(this.selection.changed);
@@ -49,8 +49,6 @@ export class TableComponent<TModel> {
     const selection = this.selectionChange()?.added[0];
     return selection ? selection : null;
   });
-
-  @Input({ required: true }) totalCount = 0;
 
   @Input({ required: true }) set data(data: TModel[] | null) {
     this.tableData.set(data || []);
@@ -76,7 +74,9 @@ export class TableComponent<TModel> {
 
   constructor() {
     effect(() => this.updateTableWhenTableDataChanged());
-    effect(() => this.propagateModelWhenSelectionChanged(), { allowSignalWrites: true });
+    effect(() => this.propagateModelWhenSelectionChanged(), {
+      allowSignalWrites: true,
+    });
   }
 
   protected updateCurrentPage($event: PageEvent) {
@@ -92,7 +92,6 @@ export class TableComponent<TModel> {
 
     const dataSource = new TableDatasource(models || []);
     dataSource.sort = this.sort;
-    // dataSource.paginator = this.paginator;
 
     this.table.dataSource = dataSource;
   }

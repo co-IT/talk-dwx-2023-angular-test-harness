@@ -1,7 +1,12 @@
 <h1>Dokumente</h1>
 <div class="table__elevator table__scroll">
   <nav class="table_commands">
-    <button mat-icon-button matTooltip="Dokument erstellen" color="primary" routerLink="neu">
+    <button
+      mat-icon-button
+      matTooltip="Dokument erstellen"
+      color="primary"
+      routerLink="neu"
+    >
       <mat-icon>add</mat-icon>
     </button>
     <ng-container *ngIf="current() as current">
@@ -29,7 +34,6 @@
   <app-table
     [columns]="['dokumenttyp', 'berechnungsart','zusatzschutz', 'webshopVersichert', 'risiko']"
     [data]="dokumenteResult()?.data || []"
-    [totalCount]="0"
     (selected)="setCurrent($event)"
   ></app-table>
 </div>
