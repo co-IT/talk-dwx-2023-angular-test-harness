@@ -1,0 +1,19 @@
+{
+  "name": "insurance-documents.web-api-swagger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "outputs": ["libs/generated/insurance-documents.web-api-swagger"]
+    },
+    "codegen": {
+      "executor": "@nx-dotnet/core:openapi-codegen",
+      "options": {
+        "openapiJsonPath": "libs/generated/insurance-documents.web-api-swagger/swagger.json",
+        "outputProject": "generated-insurance-documents.web-api-types"
+      },
+      "dependsOn": ["^swagger"]
+    }
+  },
+  "implicitDependencies": ["insurance-documents.web-api"]
+}
