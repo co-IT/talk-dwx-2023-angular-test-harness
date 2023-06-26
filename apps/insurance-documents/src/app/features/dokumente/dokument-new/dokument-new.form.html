@@ -10,6 +10,7 @@
           {{ berechnungsart }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="form.controls.berechnungsart.invalid">Wählen Sie eine Berechnungsart aus.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label class="label">Risiko</mat-label>
@@ -18,6 +19,7 @@
           {{ risiko }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="form.controls.risiko.invalid">Legen Sie ein Risiko fest.</mat-error>
     </mat-form-field>
   </div>
 
@@ -43,8 +45,13 @@
 
   <div class="form__row">
     <mat-form-field>
-      <mat-label>Zusatzschutzaufschlag</mat-label>
-      <input matInput type="text" formControlName="zusatzschutzAufschlag" />
+      <mat-label class="label">Zusatzschutzaufschlag</mat-label>
+      <mat-select formControlName="zusatzschutzAufschlag">
+        <mat-option *ngFor="let risiko of voreinstellungen?.zusatzaufschlaege" [value]="risiko">
+          {{ risiko }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.zusatzschutzAufschlag.invalid">Wählen Sie einen Aufschlag aus.</mat-error>
     </mat-form-field>
   </div>
 </form>

@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { NgForOf, NgIf } from '@angular/common';
-import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ErzeugeNeuesAngebotDto, VoreinstellungenReadDto } from '../models';
 import { debounceTime, map } from 'rxjs';
@@ -37,7 +37,7 @@ export class DokumentNewForm {
   );
 
   @Input({ required: true }) voreinstellungen: VoreinstellungenReadDto | undefined;
-  @Output() changed = new EventEmitter<ErzeugeNeuesAngebotDto>();
+  @Output() changed = new EventEmitter<ErzeugeNeuesAngebotDto|null>();
 
   constructor(private readonly formBuilder: NonNullableFormBuilder) {
     effect(() => this.emitAngebotDtoWhenFormChanged());
@@ -61,12 +61,12 @@ export class DokumentNewForm {
 
   private setupForm() {
     return this.formBuilder.group({
-      berechnungsart: '',
+      berechnungsart: ['', [Validators.required]],
+      risiko: ['', [Validators.required]],
+      zusatzschutzAufschlag: [{ value: '', disabled: true }, [Validators.required]],
       hatWebshop: false,
       willZusatzschutz: false,
-      risiko: '',
       versicherungssumme: 0,
-      zusatzschutzAufschlag: [{ value: '', disabled: true }]
     });
   }
 
@@ -74,7 +74,8 @@ export class DokumentNewForm {
     const dto = this.formValues();
 
     if (this.form.invalid) {
-      return;
+      this.changed.emit(null);
+
     }
 
     this.changed.emit(dto);

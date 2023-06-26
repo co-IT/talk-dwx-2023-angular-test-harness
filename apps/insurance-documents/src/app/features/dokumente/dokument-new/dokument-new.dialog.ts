@@ -33,7 +33,7 @@ export class DokumentNewDialog {
     await this.router.navigate(['..'], { relativeTo: this.route });
   }
 
-  protected updateAngebotDto(dto: ErzeugeNeuesAngebotDto) {
+  protected updateAngebotDto(dto: ErzeugeNeuesAngebotDto | null) {
     this.angebotDto = dto;
   }
 
