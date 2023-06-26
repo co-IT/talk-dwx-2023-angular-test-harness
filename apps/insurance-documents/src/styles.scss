@@ -33,7 +33,9 @@ body {
   overflow: auto;
 }
 
-.table_commands {
+.table_toolbar {
+  display: flex;
+  justify-content: space-between;
   padding: 0.85em;
 }
 
