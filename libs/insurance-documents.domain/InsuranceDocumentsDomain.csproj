@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Ardalis.SmartEnum" Version="7.0.0" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="2.39.2" />
+  </ItemGroup>
+
 </Project>
