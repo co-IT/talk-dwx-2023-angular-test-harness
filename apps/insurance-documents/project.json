@@ -2,7 +2,7 @@
   "name": "insurance-documents",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "dwx-test-harness",
+  "prefix": "app",
   "sourceRoot": "apps/insurance-documents/src",
   "tags": [],
   "targets": {
@@ -44,7 +44,13 @@
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/insurance-documents/src/environments/environment.ts",
+              "with": "apps/insurance-documents/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"

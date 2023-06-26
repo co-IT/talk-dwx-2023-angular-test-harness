@@ -17,7 +17,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "dwx-test-harness",
+            "prefix": "app",
             "style": "kebab-case"
           }
         ]
