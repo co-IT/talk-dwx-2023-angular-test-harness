@@ -22,6 +22,8 @@ import { KeyOf } from './key-of.type';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-table',
@@ -36,6 +38,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
     AsyncPipe,
     JsonPipe,
     TableColumnTitlePipe,
+    MatIconModule,
+    MatInputModule,
   ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],

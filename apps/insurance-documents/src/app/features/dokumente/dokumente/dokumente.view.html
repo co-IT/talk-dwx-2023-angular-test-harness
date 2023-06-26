@@ -38,7 +38,7 @@
       placeholder="Begriff eingeben..."
     ></app-search>
   </nav>
-
+  {{ dokumenteResult()?.data | json }} {{ dokumenteFiltered() | json }}
   <app-table
     [columns]="['dokumenttyp', 'berechnungsart','zusatzschutz', 'webshopVersichert', 'risiko']"
     [data]="dokumenteFiltered()"

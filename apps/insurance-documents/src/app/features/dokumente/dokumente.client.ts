@@ -1,11 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MutationService, QueryService } from '@ngneat/query';
 import { tap } from 'rxjs';
 import { EnvironmentService } from '../../environment/environment.service';
 import { QueryClient } from '../../infrastructure/ngneat';
-import { DokumentenlisteEintragDto } from './models/dokumentenliste-eintrag.dto';
-import { ErzeugeNeuesAngebotDto } from './models/erzeuge-neues-angebot.dto';
+import { DokumentenlisteEintragDto, ErzeugeNeuesAngebotDto } from './models';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class DokumenteClient {
@@ -24,14 +23,15 @@ export class DokumenteClient {
   read() {
     return this.querier.use({
       queryKey: [this.key],
-      queryFn: () => this.http.get<DokumentenlisteEintragDto[]>(this.endpoint)
+      queryFn: () => this.http.get<DokumentenlisteEintragDto[]>(this.endpoint),
     });
   }
 
   find(id: string) {
     return this.querier.use({
       queryKey: [this.key, id],
-      queryFn: () => this.http.get<DokumentenlisteEintragDto>(`${this.endpoint}/${id}`)
+      queryFn: () =>
+        this.http.get<DokumentenlisteEintragDto>(`${this.endpoint}/${id}`),
     });
   }
 

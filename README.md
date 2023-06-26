@@ -74,6 +74,6 @@ pnpm nx serve --project insurance-documents.web-api
 # Jest
 pnpm nx run insurance-documents:test --watch
 
-# Cypress E2E
-pnpm nx run insurance-documents-e2e:e2e --watch
+# Cypress Component Tests
+pnpm nx run insurance-documents:component-test --watch
 ```

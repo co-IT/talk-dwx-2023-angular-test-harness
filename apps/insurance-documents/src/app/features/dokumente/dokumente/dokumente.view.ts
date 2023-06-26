@@ -4,22 +4,25 @@ import {
   computed,
   signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { DokumenteClient } from '../dokumente.client';
-import { DokumentenlisteEintragDto } from '../models/dokumentenliste-eintrag.dto';
+import { DokumentenlisteEintragDto } from '../models';
 import { TableComponent } from '../../../components/table/table.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { SearchComponent } from '../../../components/search/search.component';
+
+import { tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dokumente',
   standalone: true,
   imports: [
     NgIf,
+    JsonPipe,
     RouterLink,
     RouterOutlet,
     MatButtonModule,
@@ -27,6 +30,7 @@ import { SearchComponent } from '../../../components/search/search.component';
     MatTooltipModule,
     TableComponent,
     SearchComponent,
+    AsyncPipe,
   ],
   templateUrl: './dokumente.view.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,15 +38,14 @@ import { SearchComponent } from '../../../components/search/search.component';
 export class DokumenteView {
   protected readonly dokumenteSearchTerm = signal('');
   protected readonly dokumenteResult = toSignal(
-    this.dokumenteClient.read().result$
+    this.dokumenteClient.read().result$.pipe(tap((r) => console.log(r.data)))
   );
 
   protected readonly dokumenteFiltered = computed(() => {
+    console.log('COMPUTED');
     const searchTerm = this.dokumenteSearchTerm();
     const dokumente = this.dokumenteResult()?.data || [];
-
     if (!searchTerm) return dokumente;
-
     return dokumente.filter(
       (dokument) =>
         dokument.berechnungsart.match(new RegExp(searchTerm, 'i')) ||
