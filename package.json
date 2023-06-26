@@ -2,7 +2,9 @@
   "name": "@dwx-test-harness/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "nx g @nx-dotnet/core:restore"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.1.0",
@@ -28,6 +30,8 @@
     "@angular/cli": "~16.1.0",
     "@angular/compiler-cli": "~16.1.0",
     "@angular/language-service": "~16.1.0",
+    "@nrwl/js": "16.4.0",
+    "@nx-dotnet/core": "^1.22.0",
     "@nx/cypress": "16.4.0",
     "@nx/eslint-plugin": "16.4.0",
     "@nx/jest": "16.4.0",
