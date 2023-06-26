@@ -2,7 +2,7 @@
   <div class="form__row">
     <mat-form-field>
       <mat-label>Berechnungsart</mat-label>
-      <mat-select formControlName="berechnungsart">
+      <mat-select data-test="berechnungsart-select" formControlName="berechnungsart">
         <mat-option
           *ngFor="let berechnungsart of voreinstellungen.berechnungsarten"
           [value]="berechnungsart"
@@ -10,7 +10,7 @@
           {{ berechnungsart }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.controls.berechnungsart.invalid">Wählen Sie eine Berechnungsart aus.</mat-error>
+      <mat-error data-test="berechnungsart-select-error" *ngIf="form.controls.berechnungsart.invalid">Bitte wählen Sie eine Berechnungsart aus.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label class="label">Risiko</mat-label>
@@ -19,7 +19,7 @@
           {{ risiko }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.controls.risiko.invalid">Legen Sie ein Risiko fest.</mat-error>
+      <mat-error *ngIf="form.controls.risiko.invalid">Bitte legen Sie das Risiko fest.</mat-error>
     </mat-form-field>
   </div>
 
@@ -51,7 +51,7 @@
           {{ risiko }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.controls.zusatzschutzAufschlag.invalid">Wählen Sie einen Aufschlag aus.</mat-error>
+      <mat-error *ngIf="form.controls.zusatzschutzAufschlag.invalid">Bitte wählen Sie einen Aufschlag aus.</mat-error>
     </mat-form-field>
   </div>
 </form>
