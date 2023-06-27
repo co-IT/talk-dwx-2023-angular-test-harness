@@ -26,8 +26,6 @@ describe('Table', () => {
       fixture.componentInstance.columns = [columnName];
       fixture.componentInstance.data = createTableTestData();
 
-      fixture.detectChanges();
-
       const workshopHeaderCell = await loader.getHarness(
         MatHeaderCellHarness.with({ columnName })
       );
@@ -54,11 +52,10 @@ describe('Table', () => {
       fixture.componentInstance.columns = [columnName];
       fixture.componentInstance.data = data;
 
-      fixture.detectChanges();
-
       const table = await loader.getHarness(MatTableHarness);
 
       phl(fixture);
+
       const rows = await table.getRows();
 
       expect(rows.length).toBe(data.length);
