@@ -41,10 +41,14 @@ export class DokumentNewFormHarness extends ComponentHarness {
     hatWebShop: boolean;
     willZusatzschutz: boolean;
   }> {
-    await (await this.berechnungSelect()).open();
-    await (await this.berechnungSelect()).clickOptions({ text: 'Umsatz' });
-    await (await this.risikoSelect()).open();
-    await (await this.risikoSelect()).clickOptions({ text: 'Gering' });
+    await this.berechnungSelect().then((harness) => harness.open());
+    await this.berechnungSelect().then((harness) =>
+      harness.clickOptions({ text: 'Umsatz' })
+    );
+    await this.risikoSelect().then((harness) => harness.open());
+    await this.risikoSelect().then((harness) =>
+      harness.clickOptions({ text: 'Gering' })
+    );
 
     await parallel(() => [
       this.hatWebShopCheckbox().then((harness) => harness.check()),
