@@ -1,4 +1,5 @@
 <h1>Dokumente</h1>
+
 <div class="table__elevator table__scroll">
   <nav class="table_toolbar">
     <div class="table__commands">
@@ -38,7 +39,7 @@
       placeholder="Begriff eingeben..."
     ></app-search>
   </nav>
-  {{ dokumenteResult()?.data | json }} {{ dokumenteFiltered() | json }}
+
   <app-table
     [columns]="['dokumenttyp', 'berechnungsart','zusatzschutz', 'webshopVersichert', 'risiko']"
     [data]="dokumenteFiltered()"

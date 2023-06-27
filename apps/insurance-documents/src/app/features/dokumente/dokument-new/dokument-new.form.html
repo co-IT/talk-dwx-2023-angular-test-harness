@@ -1,4 +1,9 @@
-<form *ngIf="voreinstellungen" [formGroup]="form" class="form">
+<form
+  *ngIf="voreinstellungen"
+  [formGroup]="form"
+  class="form"
+  data-test="dokument-new-form-host"
+>
   <div class="form__row">
     <mat-form-field data-test="berechnungsart-field">
       <mat-label>Berechnungsart</mat-label>
@@ -56,7 +61,7 @@
 
   <div class="form__row">
     <mat-checkbox
-      data-test="will-zusatzschuts-checkbox"
+      data-test="will-zusatzschutz-checkbox"
       formControlName="willZusatzschutz"
       (change)="toggleDisabled({ formControlName: 'zusatzschutzAufschlag', $event})"
     >

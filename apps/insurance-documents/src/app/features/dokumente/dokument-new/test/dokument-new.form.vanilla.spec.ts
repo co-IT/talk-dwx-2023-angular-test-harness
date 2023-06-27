@@ -1,7 +1,8 @@
-import { DokumentNewForm } from './dokument-new.form';
+import { DokumentNewForm } from '../dokument-new.form';
 import { TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { createVoreinstellungen } from './creaete-voreinstellungen.mock';
 
 describe('DokumentNewForm', () => {
   describe('When "Berechnungsarten" are present', () => {
@@ -13,11 +14,7 @@ describe('DokumentNewForm', () => {
 
       const fixture = TestBed.createComponent(DokumentNewForm);
 
-      fixture.componentInstance.voreinstellungen = {
-        berechnungsarten: ['Anzahl Mitarbeiter', 'Risiko'],
-        risiken: [],
-        zusatzaufschlaege: [],
-      };
+      fixture.componentInstance.voreinstellungen = createVoreinstellungen();
 
       fixture.detectChanges();
 
@@ -46,11 +43,7 @@ describe('DokumentNewForm', () => {
 
       const fixture = TestBed.createComponent(DokumentNewForm);
 
-      fixture.componentInstance.voreinstellungen = {
-        berechnungsarten: ['Anzahl Mitarbeiter', 'Risiko'],
-        risiken: [],
-        zusatzaufschlaege: [],
-      };
+      fixture.componentInstance.voreinstellungen = createVoreinstellungen();
 
       fixture.detectChanges();
 

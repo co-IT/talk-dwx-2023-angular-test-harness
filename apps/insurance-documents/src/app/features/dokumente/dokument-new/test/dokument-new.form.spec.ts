@@ -1,4 +1,4 @@
-import { DokumentNewForm } from './dokument-new.form';
+import { DokumentNewForm } from '../dokument-new.form';
 import { TestBed } from '@angular/core/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatSelectHarness } from '@angular/material/select/testing';
@@ -20,12 +20,10 @@ describe('DokumentNewForm', () => {
       const loader = TestbedHarnessEnvironment.loader(fixture);
 
       fixture.componentInstance.voreinstellungen = {
-        berechnungsarten: ['Anzahl Mitarbeiter', 'Risiko'],
+        berechnungsarten: ['Anzahl Mitarbeiter', 'Umsatz'],
         risiken: [],
         zusatzaufschlaege: [],
       };
-
-      fixture.detectChanges();
 
       const select = await loader.getHarness(
         MatSelectHarness.with({ selector: '[data-test=berechnungsart-select]' })
@@ -50,12 +48,10 @@ describe('DokumentNewForm', () => {
       const loader = TestbedHarnessEnvironment.loader(fixture);
 
       fixture.componentInstance.voreinstellungen = {
-        berechnungsarten: ['Anzahl Mitarbeiter', 'Risiko'],
+        berechnungsarten: ['Anzahl Mitarbeiter', 'Umsatz'],
         risiken: [],
         zusatzaufschlaege: [],
       };
-
-      fixture.detectChanges();
 
       const select = await loader.getHarness(
         MatSelectHarness.with({ selector: '[data-test=berechnungsart-select]' })
@@ -87,7 +83,7 @@ describe('When "Zusatzschutzaufschlag" is checked', () => {
     const fixture = TestBed.createComponent(DokumentNewForm);
 
     fixture.componentInstance.voreinstellungen = {
-      berechnungsarten: ['Anzahl Mitarbeiter', 'Risiko'],
+      berechnungsarten: ['Anzahl Mitarbeiter', 'Umsatz'],
       risiken: [],
       zusatzaufschlaege: ['10%', '20%'],
     };
@@ -96,7 +92,7 @@ describe('When "Zusatzschutzaufschlag" is checked', () => {
 
     const checkbox = await loader.getHarness(
       MatCheckboxHarness.with({
-        selector: '[data-test=will-zusatzschuts-checkbox]',
+        selector: '[data-test=will-zusatzschutz-checkbox]',
       })
     );
 
@@ -104,8 +100,6 @@ describe('When "Zusatzschutzaufschlag" is checked', () => {
     const isChecked = await checkbox.isChecked();
 
     expect(isChecked).toBe(true);
-
-    fixture.detectChanges();
 
     // Finding: we put the data-test on the wrong element.
     //          The error says that the MatSelectHarness could not be found
@@ -134,12 +128,10 @@ describe('[👶🏻 Child Loader] Dokument New Form', () => {
     const fixture = TestBed.createComponent(DokumentNewForm);
 
     fixture.componentInstance.voreinstellungen = {
-      berechnungsarten: ['Anzahl Mitarbeiter', 'Risiko'],
+      berechnungsarten: ['Anzahl Mitarbeiter', 'Umsatz'],
       risiken: [],
       zusatzaufschlaege: [],
     };
-
-    fixture.detectChanges();
 
     const loader = TestbedHarnessEnvironment.loader(fixture);
 
@@ -174,8 +166,6 @@ describe('[🚀 Parallel] When the form gets input', () => {
       zusatzaufschlaege: [],
     };
 
-    fixture.detectChanges();
-
     const loader = TestbedHarnessEnvironment.loader(fixture);
 
     const berechnungSelect = await loader.getHarness(
@@ -198,7 +188,7 @@ describe('[🚀 Parallel] When the form gets input', () => {
 
     const willZusatzschutzCheckbox = await loader.getHarness(
       MatCheckboxHarness.with({
-        selector: '[data-test=will-zusatzschuts-checkbox]',
+        selector: '[data-test=will-zusatzschutz-checkbox]',
       })
     );
 

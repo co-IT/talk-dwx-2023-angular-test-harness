@@ -5,9 +5,9 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { distinctUntilChanged, filter, tap } from 'rxjs';
@@ -18,10 +18,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, MatInputModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
+  imports: [
+    NgIf,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit {
   @Input() label = 'Search...';
@@ -42,7 +48,7 @@ export class SearchComponent implements OnInit {
       .pipe(
         filter((value): value is string => typeof value === 'string'),
         distinctUntilChanged(),
-        tap(value => this.updated.emit(value)),
+        tap((value) => this.updated.emit(value)),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();

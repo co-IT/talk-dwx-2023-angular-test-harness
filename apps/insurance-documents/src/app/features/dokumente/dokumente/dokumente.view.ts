@@ -13,9 +13,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { SearchComponent } from '../../../components/search/search.component';
-
-import { tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-dokumente',
@@ -31,21 +30,23 @@ import { toSignal } from '@angular/core/rxjs-interop';
     TableComponent,
     SearchComponent,
     AsyncPipe,
+    MatInputModule,
   ],
   templateUrl: './dokumente.view.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DokumenteView {
   protected readonly dokumenteSearchTerm = signal('');
-  protected readonly dokumenteResult = toSignal(
-    this.dokumenteClient.read().result$.pipe(tap((r) => console.log(r.data)))
-  );
+
+  private readonly dokumenteResult$ = this.dokumenteClient.read().result$;
+  protected readonly dokumenteResult = toSignal(this.dokumenteResult$);
 
   protected readonly dokumenteFiltered = computed(() => {
-    console.log('COMPUTED');
     const searchTerm = this.dokumenteSearchTerm();
     const dokumente = this.dokumenteResult()?.data || [];
+
     if (!searchTerm) return dokumente;
+
     return dokumente.filter(
       (dokument) =>
         dokument.berechnungsart.match(new RegExp(searchTerm, 'i')) ||

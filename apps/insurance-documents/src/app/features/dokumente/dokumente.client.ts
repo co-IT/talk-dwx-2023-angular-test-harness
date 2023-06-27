@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
-import { MutationService, QueryService } from '@ngneat/query';
+import { inject, Injectable } from '@angular/core';
+import {
+  MutationService,
+  QueryClientService,
+  QueryService,
+} from '@ngneat/query';
 import { tap } from 'rxjs';
 import { EnvironmentService } from '../../environment/environment.service';
-import { QueryClient } from '../../infrastructure/ngneat';
 import { DokumentenlisteEintragDto, ErzeugeNeuesAngebotDto } from './models';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,12 +14,14 @@ export class DokumenteClient {
   private readonly key = 'dokumente';
   private readonly endpoint = `${this.environment.configuration.apiUrl}/${this.environment.configuration.apiRoutes.dokumente}`;
 
+  private readonly queryClient = inject(QueryClientService);
+
   constructor(
     private readonly http: HttpClient,
 
     private readonly mutator: MutationService,
     private readonly querier: QueryService,
-    private readonly queryClient: QueryClient,
+    // private readonly queryClient: QueryClient,
     private readonly environment: EnvironmentService
   ) {}
 
