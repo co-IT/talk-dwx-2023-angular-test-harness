@@ -21,10 +21,11 @@
 
 ## Written Tests
 
-- [] Material Button
-- [] Material Input
-- [] Material Select
-- [] Material Table
+- [x] Material Checkbox
+- [x] Material Button
+- [x] Material Input
+- [x] Material Select
+- [x] Material Table
 
 ## Prerequisites
 
@@ -32,24 +33,7 @@
 - Having [Node 18](https://nodejs.org/en/download) installed
 - \*Having [pnpm](https://pnpm.io/installation) installed
   - You also can install the dependencies with _npm_ or _yarn_.
-
-### ⚠️ Angular 16
-
-Currently (26.06.2023) Cypress Component Test does not support **Angular 16**.
-There is a tiny fix needed to get this to work.
-
-Therefore, look for `angularHandler.js` (%USERPROFILE%\AppData\Local\Cypress\Cache\12.11.0\Cypress\resources\app\node*modules\@packages\server\node_modules\@cypress\webpack-dev-server\dist\helpers\angularHandler.js*).
-Fix the paths pointing **webpack**-configs.
-The configs have been moved to the subdirectory `tools/`.
-
-```js
-// Around Line 80 (Cypress 12.15)
-// BEFORE
-const angularCLiModules = ['@angular-devkit/build-angular/src/utils/webpack-browser-config.js', '@angular-devkit/build-angular/src/webpack/configs/common.js', '@angular-devkit/build-angular/src/webpack/configs/styles.js', '@angular-devkit/core/src/index.js'];
-
-// After
-const angularCLiModules = ['@angular-devkit/build-angular/src/utils/webpack-browser-config.js', '@angular-devkit/build-angular/src/tools/webpack/configs/common.js', '@angular-devkit/build-angular/src/tools/webpack/configs/styles.js', '@angular-devkit/core/src/index.js'];
-```
+  - In our company we completely switched to _pnpm_.
 
 ## Getting Started
 
@@ -65,7 +49,6 @@ pnpm nx serve --project insurance-documents
 
 # Console 2: .Net Web API
 pnpm nx serve --project insurance-documents.web-api
-
 ```
 
 ## Execute Tests
