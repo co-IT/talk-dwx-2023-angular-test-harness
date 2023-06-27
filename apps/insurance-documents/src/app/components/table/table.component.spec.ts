@@ -11,10 +11,10 @@ import { phl } from '@angular-extensions/pretty-html-log';
 describe('Table', () => {
   describe('When a camel cased title is provided', () => {
     it('separates the title', async () => {
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [TableComponent],
         providers: [provideNoopAnimations()],
-      }).compileComponents();
+      });
 
       type TableTestData = { workshopTitle: string };
       const columnName: keyof TableTestData = 'workshopTitle';
@@ -51,10 +51,10 @@ describe('Table', () => {
 
   describe('When data is provided', () => {
     it('renders the respective rows', async () => {
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [TableComponent],
         providers: [provideNoopAnimations()],
-      }).compileComponents();
+      });
 
       const fixture = TestBed.createComponent(TableComponent<TableTestData>);
       const loader = TestbedHarnessEnvironment.loader(fixture);

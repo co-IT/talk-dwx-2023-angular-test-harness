@@ -11,10 +11,10 @@ import { parallel } from '@angular/cdk/testing';
 describe('DokumentNewForm', () => {
   describe('When "Berechnungsarten" are present', () => {
     it('makes "Berechnungsarten" selectable', async () => {
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [DokumentNewForm],
         providers: [provideNoopAnimations()],
-      }).compileComponents();
+      });
 
       const fixture = TestBed.createComponent(DokumentNewForm);
       const loader = TestbedHarnessEnvironment.loader(fixture);
@@ -39,10 +39,10 @@ describe('DokumentNewForm', () => {
 
   describe('When no "Berechnungsart" is selected', () => {
     it('displays a validation message', async () => {
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [DokumentNewForm],
         providers: [provideNoopAnimations()],
-      }).compileComponents();
+      });
 
       const fixture = TestBed.createComponent(DokumentNewForm);
       const loader = TestbedHarnessEnvironment.loader(fixture);
@@ -75,10 +75,10 @@ describe('DokumentNewForm', () => {
 
 describe('When "Zusatzschutzaufschlag" is checked', () => {
   it('makes "Zusatzschutzaufschläge" selectable', async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [DokumentNewForm],
       providers: [provideNoopAnimations()],
-    }).compileComponents();
+    });
 
     const fixture = TestBed.createComponent(DokumentNewForm);
 
@@ -120,10 +120,10 @@ describe('When "Zusatzschutzaufschlag" is checked', () => {
 
 describe('[👶🏻 Child Loader] Dokument New Form', () => {
   it('allows having a single test entry from which we access test harnesses', async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [DokumentNewForm],
       providers: [provideNoopAnimations()],
-    }).compileComponents();
+    });
 
     const fixture = TestBed.createComponent(DokumentNewForm);
 
@@ -153,10 +153,10 @@ describe('[👶🏻 Child Loader] Dokument New Form', () => {
 });
 describe('[🚀 Parallel] When the form gets input', () => {
   it('is filled out in parallel', async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [DokumentNewForm],
       providers: [provideNoopAnimations()],
-    }).compileComponents();
+    });
 
     const fixture = TestBed.createComponent(DokumentNewForm);
 

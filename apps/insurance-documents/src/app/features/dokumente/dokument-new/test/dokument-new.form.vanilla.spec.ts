@@ -7,10 +7,10 @@ import { createVoreinstellungen } from './creaete-voreinstellungen.mock';
 describe('DokumentNewForm', () => {
   describe('When "Berechnungsarten" are present', () => {
     it('makes "Berechnungsarten" selectable', async () => {
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [DokumentNewForm],
         providers: [provideNoopAnimations()],
-      }).compileComponents();
+      });
 
       const fixture = TestBed.createComponent(DokumentNewForm);
 
@@ -36,10 +36,10 @@ describe('DokumentNewForm', () => {
 
   describe('When no "Berechnungsart" is selected', () => {
     it('displays a validation message', async () => {
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [DokumentNewForm],
         providers: [provideNoopAnimations()],
-      }).compileComponents();
+      });
 
       const fixture = TestBed.createComponent(DokumentNewForm);
 

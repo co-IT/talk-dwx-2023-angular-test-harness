@@ -9,10 +9,10 @@ import { createVoreinstellungen } from './creaete-voreinstellungen.mock';
 describe('Dokument New Form', () => {
   describe('[🖌️ Custom Harness]', () => {
     it('fills the form', async () => {
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [DokumentNewForm],
         providers: [provideNoopAnimations()],
-      }).compileComponents();
+      });
 
       const fixture = TestBed.createComponent(DokumentNewForm);
 
