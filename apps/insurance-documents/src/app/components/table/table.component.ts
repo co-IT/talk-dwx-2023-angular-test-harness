@@ -10,7 +10,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { TableDatasource } from './table.datasource';
@@ -66,7 +66,6 @@ export class TableComponent<TModel> implements AfterViewInit {
   @Output() selected = new EventEmitter<TModel | null>();
   @Output() changedCurrentPage = new EventEmitter<number>();
 
-  // @ViewChild(MatPaginator) protected paginator!: MatPaginator;
   @ViewChild(MatSort) protected sort!: MatSort;
   @ViewChild(MatTable) protected table!: MatTable<TModel>;
 
@@ -86,10 +85,6 @@ export class TableComponent<TModel> implements AfterViewInit {
 
   ngAfterViewInit() {
     this.bindModelsToTable();
-  }
-
-  protected updateCurrentPage($event: PageEvent) {
-    this.changedCurrentPage.emit($event.pageIndex);
   }
 
   private bindModelsToTable() {

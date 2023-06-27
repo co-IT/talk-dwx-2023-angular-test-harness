@@ -7,6 +7,7 @@ import { MatErrorHarness } from '@angular/material/form-field/testing';
 import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { parallel } from '@angular/cdk/testing';
+import { createVoreinstellungen } from './creaete-voreinstellungen.mock';
 
 describe('DokumentNewForm', () => {
   describe('When "Berechnungsarten" are present', () => {
@@ -19,11 +20,7 @@ describe('DokumentNewForm', () => {
       const fixture = TestBed.createComponent(DokumentNewForm);
       const loader = TestbedHarnessEnvironment.loader(fixture);
 
-      fixture.componentInstance.voreinstellungen = {
-        berechnungsarten: ['Anzahl Mitarbeiter', 'Umsatz'],
-        risiken: [],
-        zusatzaufschlaege: [],
-      };
+      fixture.componentInstance.voreinstellungen = createVoreinstellungen();
 
       const select = await loader.getHarness(
         MatSelectHarness.with({ selector: '[data-test=berechnungsart-select]' })
