@@ -2,6 +2,10 @@
 
 > brought to you with 🥰 by [co-IT.eu](https://co-it.eu) GmbH
 
+## Slides
+
+- 🖌️ https://speakerdeck.com/gregonnet/angular-material-test-harness
+
 ## Inside this repository
 
 - Mono Repository containing a
