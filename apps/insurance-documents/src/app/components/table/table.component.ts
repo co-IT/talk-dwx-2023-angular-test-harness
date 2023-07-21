@@ -1,29 +1,30 @@
+import { AsyncPipe, JsonPipe, NgForOf } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  computed,
-  effect,
   EventEmitter,
   Input,
   Output,
-  signal,
   ViewChild,
+  computed,
+  effect,
+  signal,
+  untracked,
 } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { TableDatasource } from './table.datasource';
-import { AsyncPipe, JsonPipe, NgForOf } from '@angular/common';
 
-import { TableColumnTitlePipe } from './table-column-titlte.pipe';
-import { MatButtonModule } from '@angular/material/button';
-import { KeyOf } from './key-of.type';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { KeyOf } from './key-of.type';
+import { TableColumnTitlePipe } from './table-column-titlte.pipe';
 
 @Component({
   selector: 'app-table',
@@ -77,10 +78,8 @@ export class TableComponent<TModel> implements AfterViewInit {
   });
 
   constructor() {
-    effect(() => this.bindModelsToTable(), { allowSignalWrites: true });
-    effect(() => this.propagateModelWhenSelectionChanged(), {
-      allowSignalWrites: true,
-    });
+    effect(() => this.bindModelsToTable());
+    effect(() => this.propagateModelWhenSelectionChanged());
   }
 
   ngAfterViewInit() {
@@ -100,12 +99,13 @@ export class TableComponent<TModel> implements AfterViewInit {
 
     // Clear Selection
     this.selection.clear();
-    this.selected.emit(null);
+
+    untracked(() => this.selected.emit(null));
   }
 
   private propagateModelWhenSelectionChanged() {
     const model = this.selectedModel();
 
-    this.selected.emit(model);
+    untracked(() => this.selected.emit(model));
   }
 }
